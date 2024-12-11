@@ -1,0 +1,11 @@
+version: '4.34.3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DJANGO_ENV=production

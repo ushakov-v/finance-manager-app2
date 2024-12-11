@@ -1,0 +1,13 @@
+{% load static %}
+<nav class="navbar">
+    <div class="navbar-container">
+        <!-- Логотип или название -->
+        <a href="/" class="navbar-logo">Финансы</a>
+
+        <!-- Кнопки профиля и выхода -->
+        <div class="navbar-buttons">
+            <a href="{% url 'profile' %}" class="btn btn-profile">Профиль</a>
+            <a href="{% url 'logout' %}" class="btn btn-logout">Выйти</a>
+        </div>
+    </div>
+</nav>

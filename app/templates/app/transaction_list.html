@@ -1,0 +1,7 @@
+<!-- app/templates/app/transaction_list.html -->
+<h1>Transaction List</h1>
+<ul>
+  {% for transaction in transactions %}
+    <li>{{ transaction.name }} - {{ transaction.amount }}</li>
+  {% endfor %}
+</ul>

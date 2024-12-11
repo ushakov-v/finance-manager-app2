@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Удалить транзакцию</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container delete-container">
+        <h2>Удаление транзакции</h2>
+        <p class="delete-warning">Вы уверены, что хотите удалить эту транзакцию?</p>
+        <!-- Экранируем вывод данных транзакции -->
+        <p class="transaction-details"><strong>Транзакция:</strong> {{ transaction|escape }}</p>
+        <div class="delete-actions">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+            <a href="javascript:history.back();" class="btn btn-secondary">Отменить</a>
+        </div>
+    </div>
+</body>
+</html>

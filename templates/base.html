@@ -1,0 +1,18 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'transactions' %}">Список транзакций</a>
+        <a href="{% url 'add_transaction' %}">Добавить транзакцию</a>
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

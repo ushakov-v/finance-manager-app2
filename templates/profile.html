@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div class="container profile-container">
+        <h2>Редактировать профиль</h2>
+        <form method="post" class="profile-form">
+            {% csrf_token %}
+
+            <!-- Имя пользователя -->
+            <div class="form-group">
+                <label for="username">Имя пользователя</label>
+                <input type="text" name="username" id="username" class="form-control"
+                       value="{{ form.username.value }}" placeholder="Введите имя пользователя" required>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control"
+                       value="{{ form.email.value }}" placeholder="Введите email" required>
+            </div>
+
+            <!-- Новый пароль -->
+            <div class="form-group">
+                <label for="password">Новый пароль</label>
+                <input type="password" name="password" id="password" class="form-control"
+                       placeholder="Оставьте пустым, чтобы не менять пароль">
+            </div>
+
+            <!-- Кнопка отправки -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-submit">Сохранить изменения</button>
+                <a href="javascript:history.back();" class="btn btn-secondary">Отменить</a>
+            </div>
+        </form>
+
+        <!-- Форма для удаления профиля -->
+        <form method="post" action="{% url 'delete_profile' %}" class="delete-profile-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить свой профиль? Это действие необратимо.')">
+                    Удалить профиль
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

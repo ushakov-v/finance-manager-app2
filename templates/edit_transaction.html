@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать транзакцию</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+{% include 'navbar.html' %}
+    <div class="container">
+        <h2>Редактировать транзакцию</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Тип транзакции -->
+            <div class="form-group">
+                <label for="transaction_type">Тип транзакции</label>
+                {{ form.transaction_type }}
+            </div>
+
+            <!-- Сумма -->
+            <div class="form-group">
+                <label for="amount">Сумма</label>
+                {{ form.amount }}
+            </div>
+
+            <!-- Дата -->
+            <div class="form-group">
+                <label for="date">Дата</label>
+                <input type="date" name="date" id="date" class="form-control" value="{{ form.date.value|date:"Y-m-d" }}">
+            </div>
+
+            <!-- Описание -->
+            <div class="form-group">
+                <label for="description">Описание</label>
+                {{ form.description }}
+            </div>
+
+            <!-- Категория (доход или расход) -->
+            <div class="form-group" id="category-group">
+                <label for="category">Категория</label>
+                <div id="category-income" style="display: none;">
+                    {{ form.category_income }}
+                </div>
+                <div id="category-expense" style="display: none;">
+                    {{ form.category_expense }}
+                </div>
+            </div>
+
+            <!-- Кнопка отправки -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                <a href="javascript:history.back();" class="btn btn-secondary">Отменить</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const transactionTypeField = document.querySelector("select[name='transaction_type']");
+            const categoryIncomeField = document.getElementById("category-income");
+            const categoryExpenseField = document.getElementById("category-expense");
+
+            function updateCategories() {
+                const transactionType = transactionTypeField.value;
+
+                // Скрываем обе категории по умолчанию
+                categoryIncomeField.style.display = "none";
+                categoryExpenseField.style.display = "none";
+
+                // Отображаем соответствующую категорию в зависимости от типа транзакции
+                if (transactionType === 'income') {
+                    categoryIncomeField.style.display = "block";
+                } else if (transactionType === 'expense') {
+                    categoryExpenseField.style.display = "block";
+                }
+            }
+
+            // Изначально обновляем список категорий в зависимости от текущего значения типа транзакции
+            updateCategories();
+
+            // Обработчик изменения типа транзакции
+            transactionTypeField.addEventListener("change", updateCategories);
+        });
+    </script>
+</body>
+</html>
